@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './App.css'
+import './App.css';
+import NavInfo from './components/NavInfo';
 const App = () => {
   const [todos, setTodos] = useState([
     { id: 1, text: 'Task 1', completed: false },
@@ -8,11 +9,20 @@ const App = () => {
     { id: 4, text: 'Task 4', completed: false },
     { id: 5, text: 'Task 5', completed: false },
     { id: 6, text: 'Task 6', completed: false },
-    { id: 7, text: 'Task 7', completed: false },
+    { id: 7, text: 'Task 7', completed: false }
   ]);
 
   const [selectedTodoIndex, setSelectedTodoIndex] = useState(0);
 
+  const handleSpace = () => {
+    const updatedTodos = todos.map((todo) =>
+      todo.id === selectedTodoIndex + 1
+        ? { ...todo, completed: !todo.completed }
+        : todo
+    );
+
+    setTodos(updatedTodos);
+  };
   useEffect(() => {
     const handleKeyDown = (e) => {
       switch (e.key) {
@@ -26,6 +36,8 @@ const App = () => {
             prevIndex > 0 ? prevIndex - 1 : prevIndex
           );
           break;
+        case ' ':
+          handleSpace();
         default:
           break;
       }
@@ -45,31 +57,35 @@ const App = () => {
   };
 
   return (
-      <>
-
-      j for down,<br/>
-      k for up,<br/>
-      space for checking,<br/>
-      enter for more info<br/>
-    n for new todo<br/>
-      <br/>
-    <div className="bg-red w-full" >
-      {todos.map((todo, index) => (
-        <div className="w-full"  key={todo.id}>
-          {selectedTodoIndex === index ? <span className="inline-block w-[13px]">*</span> : <span className="inline-block w-[13px]"></span>}
-          <input
-            className="w-[30px]"
-            type="checkbox"
-            checked={todo.completed}
-            onChange={() => handleCheckboxChange(index)}
-          />
-          <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
-            {todo.text}
-          </span>
-        </div>
-      ))}
-      <p>Selected Index: {selectedTodoIndex}</p>
-    </div></>
+    <div className='h-full w-full'>
+      <NavInfo />
+      <br />
+      <div className='bg-red w-full'>
+        {todos.map((todo, index) => (
+          <div className='w-full' key={todo.id}>
+            {selectedTodoIndex === index ? (
+              <span className='inline-block w-[13px]'>*</span>
+            ) : (
+              <span className='inline-block w-[13px]'></span>
+            )}
+            <input
+              className='w-[30px]'
+              type='checkbox'
+              checked={todo.completed}
+              onChange={() => handleCheckboxChange(index)}
+            />
+            <span
+              style={{
+                textDecoration: todo.completed ? 'line-through' : 'none'
+              }}
+            >
+              {todo.text}
+            </span>
+          </div>
+        ))}
+        <p>Selected Index: {selectedTodoIndex}</p>
+      </div>
+    </div>
   );
 };
-export default App
+export default App;
