@@ -13,16 +13,6 @@ const App = () => {
   ]);
 
   const [selectedTodoIndex, setSelectedTodoIndex] = useState(0);
-
-  const handleSpace = () => {
-    const updatedTodos = todos.map((todo) =>
-      todo.id === selectedTodoIndex + 1
-        ? { ...todo, completed: !todo.completed }
-        : todo
-    );
-
-    setTodos(updatedTodos);
-  };
   useEffect(() => {
     const handleKeyDown = (e) => {
       switch (e.key) {
@@ -49,6 +39,20 @@ const App = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [todos]);
+
+  useEffect(() => {
+    console.log(selectedTodoIndex);
+  }, [selectedTodoIndex]);
+
+  const handleSpace = () => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo, index) => {
+        return index === selectedTodoIndex
+          ? { ...todo, completed: !todo.completed }
+          : todo;
+      });
+    });
+  };
 
   const handleCheckboxChange = (index) => {
     const updatedTodos = [...todos];
@@ -83,7 +87,6 @@ const App = () => {
             </span>
           </div>
         ))}
-        <p>Selected Index: {selectedTodoIndex}</p>
       </div>
     </div>
   );
