@@ -1,4 +1,4 @@
-export const useTask = () => {
+export const useTasks = () => {
   const getTasks = () => {};
   const updateTask = () => {};
 
