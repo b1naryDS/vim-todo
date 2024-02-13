@@ -66,13 +66,13 @@ const App = () => {
   };
 
   return (
-    <div className='min-h-[34rem] mt-10 h-full w-full rounded-xl border-[1px] border-black p-4 shadow-xl'>
+    <div className='min-h-[34rem] mt-10  w-full rounded-xl border-[1px] border-black p-4 shadow-xl'>
       <NavInfo />
       <br />
       <div className='bg-red w-full'>
         {todos.map((todo, index) => (
-          <>
-            <Todo selected={selectedTodoIndex === index} key={todo.id}>
+          <div key={todo.id}>
+            <Todo selected={selectedTodoIndex === index} >
             {/*<span className='inline-block w-[13px]'>
                 {selectedTodoIndex === index ? (
                   <Asterisk color='white' />
@@ -95,7 +95,7 @@ const App = () => {
             </Todo>
 
             <hr className='w-full ' />
-          </>
+          </div>
         ))}
       </div>
     </div>
