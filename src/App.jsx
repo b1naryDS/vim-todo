@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import NavInfo from './components/NavInfo';
+import { Asterisk, Camera } from 'lucide-react';
 const App = () => {
   const [todos, setTodos] = useState([
     { id: 1, text: 'Task example writing something longer', completed: false },
@@ -69,7 +70,7 @@ const App = () => {
           <Todo selected={selectedTodoIndex === index} key={todo.id}>
             <>
               <span className='inline-block w-[13px]'>
-                {selectedTodoIndex === index ? '*' : null}
+                {selectedTodoIndex === index ? <Asterisk color="white" /> : null}
               </span>
 
               <input
