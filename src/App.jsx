@@ -73,11 +73,11 @@ const App = () => {
         {todos.map((todo, index) => (
           <>
             <Todo selected={selectedTodoIndex === index} key={todo.id}>
-              <span className='inline-block w-[13px]'>
+            {/*<span className='inline-block w-[13px]'>
                 {selectedTodoIndex === index ? (
                   <Asterisk color='white' />
                 ) : null}
-              </span>
+              </span>*/}
 
               <input
                 className='m-1 w-[30px]'
