@@ -1,16 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import NavInfo from './components/NavInfo';
-import { Asterisk, Camera } from 'lucide-react';
+import { Asterisk } from 'lucide-react';
 const App = () => {
+  //TODO: get from local storage initial todos;
+  //TODO: add todo, delete todo, update todo;
+  //TODO: move to useTodos tsx;
   const [todos, setTodos] = useState([
-    { id: 1, text: 'Task example writing something longer', completed: false },
-    { id: 2, text: 'Task 2', completed: false },
-    { id: 3, text: 'Task 3', completed: false },
-    { id: 4, text: 'Task 4', completed: false },
-    { id: 5, text: 'Task 5', completed: false },
-    { id: 6, text: 'Task 6', completed: false },
-    { id: 7, text: 'Task 7', completed: false }
+    {
+      id: 1,
+      text: 'Shadcn ui checkbox instead of default input type checkbox',
+      completed: false
+    },
+    { id: 2, text: 'Todo CRUD with localstorage', completed: false },
+    { id: 3, text: 'move the crud to use tasks', completed: false },
+    { id: 4, text: 'apstract use tasks with use crud?', completed: false },
   ]);
 
   const [selectedTodoIndex, setSelectedTodoIndex] = useState(0);
@@ -62,19 +66,21 @@ const App = () => {
   };
 
   return (
-    <div className='h-full w-full'>
+    <div className='min-h-[34rem] mt-10 h-full w-full rounded-xl border-[1px] border-black p-4 shadow-xl'>
       <NavInfo />
       <br />
       <div className='bg-red w-full'>
         {todos.map((todo, index) => (
-          <Todo selected={selectedTodoIndex === index} key={todo.id}>
-            <>
+          <>
+            <Todo selected={selectedTodoIndex === index} key={todo.id}>
               <span className='inline-block w-[13px]'>
-                {selectedTodoIndex === index ? <Asterisk color="white" /> : null}
+                {selectedTodoIndex === index ? (
+                  <Asterisk color='white' />
+                ) : null}
               </span>
 
               <input
-                className='w-[30px] m-1'
+                className='m-1 w-[30px]'
                 type='checkbox'
                 checked={todo.completed}
                 onChange={() => handleCheckboxChange(index)}
@@ -86,17 +92,21 @@ const App = () => {
               >
                 {todo.text}
               </span>
-            </>
-          </Todo>
+            </Todo>
+
+            <hr className='w-full ' />
+          </>
         ))}
       </div>
     </div>
   );
 };
 
-const Todo = ({selected, children}) => {
-    const base = 'w-full my-1 flex flex-row gap-2 px-4 py-1';
-  const t = selected ? base + ' bg-[#9c52b3] text-white rounded-md shadow-md' : base + '';
+const Todo = ({ selected, children }) => {
+  const base = 'w-full my-1 flex flex-row gap-2 px-4 py-1';
+  const t = selected
+    ? base + ' bg-[#9c52b3] text-white rounded-md shadow-md'
+    : base + '';
   return <div className={t}>{children}</div>;
 };
 export default App;
