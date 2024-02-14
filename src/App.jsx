@@ -2,10 +2,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import NavInfo from './components/NavInfo';
 import { Checkbox } from '@/components/ui/Checkbox';
+import { Input } from './components/ui/Input';
 const App = () => {
   //TODO: get from local storage initial todos;
   //TODO: add todo, delete todo, update todo;
   //TODO: move to useTodos tsx;
+  const inputRef = useRef(null);
+
+  const handleFocus = () => {
+    inputRef.current.placeholder = 'Type something and press Enter';
+  };
+
+  const handleBlur = () => {
+    inputRef.current.placeholder = 'press N to add new';
+  };
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -14,7 +24,15 @@ const App = () => {
     },
     { id: 2, text: 'Todo CRUD with localstorage', completed: false },
     { id: 3, text: 'move the crud to use tasks', completed: false },
-    { id: 4, text: 'apstract use tasks with use crud?', completed: false }
+    { id: 4, text: 'apstract use tasks with use crud?', completed: false },
+    { id: 5, text: 'spar - rio mare tuna', completed: false },
+    { id: 6, text: 'spar - riblji stapici', completed: false },
+    { id: 7, text: 'spar - ecg kuhalo za vodu?', completed: false },
+    {
+      id: 8,
+      text: 'spar - nivea gel za tusiranje, head and shoulders',
+      completed: false
+    }
   ]);
 
   const [selectedTodoIndex, setSelectedTodoIndex] = useState(0);
@@ -92,11 +110,9 @@ const App = () => {
             </Todo>
           </div>
         ))}
-        <Todo selected={false}>
-          <div>
-            press <strong>N</strong> to add new
-          </div>
-        </Todo>
+        <div>
+          <Input className='my-2 w-full' ref={inputRef} placeholder={"press N to add new"} onFocus={handleFocus} onBlur={handleBlur} />
+        </div>
       </div>
     </div>
   );
