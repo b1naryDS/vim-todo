@@ -2,19 +2,22 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import NavInfo from './components/NavInfo';
 import { Checkbox } from '@/components/ui/Checkbox';
-import { Input } from './components/ui/Input';
+import { Input } from '@/components/ui/Input';
 const App = () => {
   //TODO: get from local storage initial todos;
   //TODO: add todo, delete todo, update todo;
   //TODO: move to useTodos tsx;
   const inputRef = useRef(null);
+  const [inputFocused, setFocused] = useState(false);
 
   const handleFocus = () => {
     inputRef.current.placeholder = 'Type something and press Enter';
+    setFocused(true);
   };
 
   const handleBlur = () => {
     inputRef.current.placeholder = 'press N to add new';
+    setFocused(false);
   };
   const [todos, setTodos] = useState([
     {
@@ -64,10 +67,13 @@ const App = () => {
           );
           break;
         case 'n':
-          //TODO: add new
+          if(!inputFocused) e.preventDefault();
+          console.log(inputRef);
+          inputRef.current.focus();
           break;
         case ' ':
           handleSpace(currentIndex);
+          break;
         default:
           break;
       }
@@ -78,7 +84,7 @@ const App = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [inputFocused]);
 
   const handleCheckboxChange = (index) => {
     const updatedTodos = [...todos];
@@ -111,7 +117,13 @@ const App = () => {
           </div>
         ))}
         <div>
-          <Input className='my-2 w-full' ref={inputRef} placeholder={"press N to add new"} onFocus={handleFocus} onBlur={handleBlur} />
+          <Input
+            className='my-2 w-full'
+            ref={inputRef}
+            placeholder={'press N to add new'}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+          />
         </div>
       </div>
     </div>
