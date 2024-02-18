@@ -41,9 +41,14 @@ const App = () => {
   const [selectedTodoIndex, setSelectedTodoIndex] = useState(0);
   const selectedTodoIndexRef = useRef(selectedTodoIndex);
 
+  const handleEnter = (inputValue) => {
+    console.log(inputValue);
+  };
+
   useEffect(() => {
     selectedTodoIndexRef.current = selectedTodoIndex;
   }, [selectedTodoIndex]);
+
   useEffect(() => {
     const handleSpace = (ind) => {
       setTodos((prevTodos) => {
@@ -55,6 +60,7 @@ const App = () => {
 
     const handleKeyDown = (e) => {
       const currentIndex = selectedTodoIndexRef.current;
+      if (inputFocused) return;
       switch (e.key) {
         case 'j':
           setSelectedTodoIndex((prevIndex) =>
@@ -67,10 +73,13 @@ const App = () => {
           );
           break;
         case 'n':
-          if(!inputFocused) e.preventDefault();
+          if (!inputFocused) e.preventDefault();
           console.log(inputRef);
           inputRef.current.focus();
           break;
+        case 'Enter':
+          if (inputFocused) e.preventDefault();
+          handleEnter(e.target.value);
         case ' ':
           handleSpace(currentIndex);
           break;
@@ -92,6 +101,13 @@ const App = () => {
     setTodos(updatedTodos);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(e);
+    inputRef.current.value = '';
+    inputRef.current.blur();
+  };
+
   return (
     <div className='mt-10 min-h-[34rem] w-full  rounded-xl border-[1px] border-black bg-[#dadbd0] p-4 shadow-xl'>
       <NavInfo />
@@ -104,6 +120,9 @@ const App = () => {
                 id={todo.id}
                 type='checkbox'
                 checked={todo.completed}
+                onKeyDown={(e) => {
+                  inputFocused ? e.preventDefault() : null;
+                }}
                 onChange={() => handleCheckboxChange(index)}
               />
               <span
@@ -117,13 +136,15 @@ const App = () => {
           </div>
         ))}
         <div>
-          <Input
-            className='my-2 w-full'
-            ref={inputRef}
-            placeholder={'press N to add new'}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
+          <form onSubmit={handleSubmit}>
+            <Input
+              className='my-2 w-full border-[#9f9f9f] bg-[#dadbd0] text-black'
+              ref={inputRef}
+              placeholder={'press N to add new'}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+            />
+          </form>
         </div>
       </div>
     </div>
