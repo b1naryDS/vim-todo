@@ -1,24 +1,30 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
-import NavInfo from './components/NavInfo';
-import { Checkbox } from '@/components/ui/Checkbox';
-import { Input } from '@/components/ui/Input';
+import NavInfo from '@components/NavInfo';
+import { Checkbox } from '@components/ui/Checkbox';
+import { Input } from '@components/ui/Input';
+import useTasks from '@hooks/use-task';
 const App = () => {
   //TODO: get from local storage initial todos;
   //TODO: add todo, delete todo, update todo;
   //TODO: move to useTodos tsx;
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [inputFocused, setFocused] = useState(false);
 
   const handleFocus = () => {
-    inputRef.current.placeholder = 'Type something and press Enter';
+    inputRef && inputRef.current
+      ? (inputRef.current.placeholder = 'Type something and press Enter')
+      : null;
     setFocused(true);
   };
 
   const handleBlur = () => {
-    inputRef.current.placeholder = 'press N to add new';
+    inputRef && inputRef.current
+      ? (inputRef.current.placeholder = 'press N to add new')
+      : null;
     setFocused(false);
   };
+  const {} = useTasks();
   const [todos, setTodos] = useState([
     {
       id: 1,

@@ -1,4 +1,10 @@
-export const useTasks = () => {
+import { useEffect } from "react";
+
+const useTasks = () => {
+  const [tasks, setTasks] = useState([]);
+  useEffect(() => {
+    console.log("get tasks from local storage");
+  },[])
   const getTasks = () => {};
   const updateTask = () => {};
 
@@ -17,3 +23,5 @@ export const useEntityService = () => {
     deleteItem
   };
 };
+
+export default useTasks;
