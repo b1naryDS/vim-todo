@@ -120,9 +120,6 @@ const App = () => {
                 id={todo.id}
                 type='checkbox'
                 checked={todo.completed}
-                onKeyDown={(e) => {
-                  inputFocused ? e.preventDefault() : null;
-                }}
                 onChange={() => handleCheckboxChange(index)}
               />
               <span
