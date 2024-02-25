@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
-import NavInfo from '@components/NavInfo';
-import { Checkbox } from '@components/ui/Checkbox';
+import { Checkbox } from './components/ui/Checkbox';
 import { Input } from '@components/ui/Input';
 import useTasks from '@hooks/use-task';
+import { NavInfo } from '@components/NavInfo';
 const App = () => {
   //TODO: get from local storage initial todos;
   //TODO: add todo, delete todo, update todo;
@@ -118,7 +118,7 @@ const App = () => {
     <div className='mt-10 min-h-[34rem] w-full  rounded-xl border-[1px] border-black bg-[#dadbd0] p-4 shadow-xl'>
       <NavInfo />
       <br />
-      <div className='bg-red w-full divide-y-[1px] divide-[#a8a8a8]'>
+      <div className='bg-[#333333] w-full divide-y-[1px] divide-[#a8a8a8]'>
         {todos.map((todo, index) => (
           <div key={todo.id}>
             <Todo selected={selectedTodoIndex === index}>

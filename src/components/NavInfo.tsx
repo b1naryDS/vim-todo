@@ -1,6 +1,6 @@
 import { Timer } from "lucide-react";
 
-export default function NavInfo() {
+function NavInfo() {
 return (
       <><strong>J</strong> for down,<br/>
       <strong>K </strong>for up,<br/>
@@ -9,3 +9,5 @@ return (
       <p className="flex items-center gap-2"><strong>N</strong> for new todo<Timer className="inline mx-2" size="20" />(coming soon)<br/></p>
     </>)
 }
+
+export { NavInfo }
